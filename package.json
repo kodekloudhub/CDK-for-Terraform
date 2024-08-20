@@ -1,0 +1,7 @@
+{
+  "name": "typescript-fundamentals",
+  "packageManager": "yarn@4.4.0",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
