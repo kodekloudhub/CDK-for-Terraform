@@ -1,36 +1,25 @@
-interface Person {
-  name: string;
-  age?: number;
-  isStudent: boolean;
+type Fruit = "APPLE" | "BANANA" | "ORANGE";
+let myFruit: Fruit;
+myFruit = "APPLE"; // Valid
+myFruit = "BANANA"; // Valid
+// myFruit = "GRAPE"; // Error: "GRAPE" is not a valid value
+
+enum Status {
+  PENDING = 1,
+  IN_PROGRESS = 2,
+  COMPLETED = 3,
 }
 
-class Athlete implements Person {
-  name: string;
-  age?: number;
-  isStudent: boolean;
-  sport: string;
+let myStatus: Status;
+myStatus = Status.PENDING; // Valid, assigns value 1
+myStatus = Status.IN_PROGRESS; // Valid, assigns value 2
 
-  constructor(
-    name: string,
-    age: number,
-    sport: string,
-    isStudent: boolean = true
-  ) {
-    this.name = name;
-    this.age = age;
-    this.sport = sport;
-    this.isStudent = isStudent;
-  }
-
-  greet(): string {
-    return `Hello, my name is ${this.name} and I am ${
-      this.age
-    } years old. I am ${
-      this.isStudent ? "a student" : "not a student"
-    } and I play ${this.sport}.`;
-  }
+enum Color {
+  RED = "RED",
+  GREEN = "GREEN",
+  BLUE = "BLUE",
 }
 
-const person = new Athlete("John Doe", 30, "football");
-
-console.log(person.greet());
+let myColor: Color;
+myColor = Color.RED; // Valid, assigns value "RED"
+myColor = Color.GREEN; // Valid, assigns value "GREEN"
