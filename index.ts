@@ -1,12 +1,36 @@
-function multiply(a: number, b?: number): number {
-  return a * (b ?? 1); // If b is not provided, use 1
-}
-function welcome(message: string = "Hello"): string {
-  return `${message}, world!`;
-}
-
-function regularGreet(name: string): string {
-  return `Hello, ${name}!`;
+interface Person {
+  name: string;
+  age?: number;
+  isStudent: boolean;
 }
 
-const arrowGreet = (name: string): string => `Hello, ${name}!`;
+class Athlete implements Person {
+  name: string;
+  age?: number;
+  isStudent: boolean;
+  sport: string;
+
+  constructor(
+    name: string,
+    age: number,
+    sport: string,
+    isStudent: boolean = true
+  ) {
+    this.name = name;
+    this.age = age;
+    this.sport = sport;
+    this.isStudent = isStudent;
+  }
+
+  greet(): string {
+    return `Hello, my name is ${this.name} and I am ${
+      this.age
+    } years old. I am ${
+      this.isStudent ? "a student" : "not a student"
+    } and I play ${this.sport}.`;
+  }
+}
+
+const person = new Athlete("John Doe", 30, "football");
+
+console.log(person.greet());
