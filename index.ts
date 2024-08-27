@@ -1,19 +1,12 @@
-interface Person {
-  name: string;
-  age?: number;
-  isStudent: boolean;
+function multiply(a: number, b?: number): number {
+  return a * (b ?? 1); // If b is not provided, use 1
+}
+function welcome(message: string = "Hello"): string {
+  return `${message}, world!`;
 }
 
-const person1: Person = {
-  name: "John Doe",
-  age: 30,
-  isStudent: false,
-};
+function regularGreet(name: string): string {
+  return `Hello, ${name}!`;
+}
 
-const person2: Person = {
-  name: "Jane Doe",
-  isStudent: true,
-};
-
-console.log(person1);
-console.log(person2);
+const arrowGreet = (name: string): string => `Hello, ${name}!`;
