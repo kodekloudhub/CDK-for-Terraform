@@ -1,8 +1,11 @@
-let year: number = 2024;
-let isLearning: boolean = true;
-let greeting: string | null = null;
+const person = {
+  name: "John Doe",
+  age: 30,
+  isStudent: false,
+};
 
-if (isLearning) {
-  greeting = "Enjoy learned TypeScript! in " + year;
-}
-console.log(greeting);
+let numbers: number[] = [1, 2, 3, 4];
+
+console.log(person);
+console.log(person.name);
+console.log(numbers);
