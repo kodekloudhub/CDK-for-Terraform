@@ -1,25 +1,21 @@
-type Fruit = "APPLE" | "BANANA" | "ORANGE";
-let myFruit: Fruit;
-myFruit = "APPLE"; // Valid
-myFruit = "BANANA"; // Valid
-// myFruit = "GRAPE"; // Error: "GRAPE" is not a valid value
+// Importing named exports
+import { add, subtract } from "./import-examples/mathUtils";
 
-enum Status {
-  PENDING = 1,
-  IN_PROGRESS = 2,
-  COMPLETED = 3,
-}
+// Importing the default export
+import calculateTotal from "./import-examples/calculator";
 
-let myStatus: Status;
-myStatus = Status.PENDING; // Valid, assigns value 1
-myStatus = Status.IN_PROGRESS; // Valid, assigns value 2
+// Importing all exports from a file
+import * as mathUtils from "./import-examples/utils";
 
-enum Color {
-  RED = "RED",
-  GREEN = "GREEN",
-  BLUE = "BLUE",
-}
+// Using the imports
+const sum = add(5, 10);
+const difference = subtract(10, 5);
+const total = calculateTotal([10, 20, 30]);
+const product = mathUtils.multiply(5, 3);
+const quotient = mathUtils.divide(10, 2);
 
-let myColor: Color;
-myColor = Color.RED; // Valid, assigns value "RED"
-myColor = Color.GREEN; // Valid, assigns value "GREEN"
+console.log(`Sum: ${sum}`);
+console.log(`Difference: ${difference}`);
+console.log(`Total: ${total}`);
+console.log(`Product: ${product}`);
+console.log(`Quotient: ${quotient}`);
