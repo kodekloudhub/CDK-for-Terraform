@@ -1,11 +1,19 @@
-const person = {
+interface Person {
+  name: string;
+  age?: number;
+  isStudent: boolean;
+}
+
+const person1: Person = {
   name: "John Doe",
   age: 30,
   isStudent: false,
 };
 
-let numbers: number[] = [1, 2, 3, 4];
+const person2: Person = {
+  name: "Jane Doe",
+  isStudent: true,
+};
 
-console.log(person);
-console.log(person.name);
-console.log(numbers);
+console.log(person1);
+console.log(person2);
