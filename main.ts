@@ -1,15 +1,14 @@
 import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
-import { LocalProvider } from '@cdktf/provider-local/lib/provider';
+import { provider, file } from '@cdktf/provider-local';
 import * as path from 'path';
-import { file } from '@cdktf/provider-local';
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
     // Initialize the local provider
-    new LocalProvider(this, 'local', {});
+    new provider.LocalProvider(this, 'local', {});
 
     const projectDirectory = path.join(process.env.INIT_CWD!, './authors-projects');
 
@@ -17,9 +16,26 @@ class MyStack extends TerraformStack {
 
     const basePath = `${projectDirectory}/${projectName}`;
 
-    new file.File(this, 'ReadmeFile', {
+    new file.File(this, 'readme-file', {
       filename: `${basePath}/README.md`,
       content: `# ${projectName}\n\nThis is the ${projectName} project.`,
+    });
+
+    // Create the package.json file with basic content
+    new file.File(this, 'package-json-file', {
+      filename: `${basePath}/package.json`,
+      content: JSON.stringify(
+        {
+          name: projectName,
+          version: '1.0.0',
+          main: 'index.js',
+          scripts: {
+            start: 'node index.js',
+          },
+        },
+        null,
+        2
+      ),
     });
   }
 }
