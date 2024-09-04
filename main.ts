@@ -25,6 +25,10 @@ class MyStack extends TerraformStack {
     new TerraformOutput(this, 'readMeContent', {
       value: projectFolder.readMeFile.content,
     });
+
+    new TerraformOutput(this, 'gitIgnoreContent', {
+      value: projectFolder.gitIgnoreFile.content,
+    });
   }
 }
 

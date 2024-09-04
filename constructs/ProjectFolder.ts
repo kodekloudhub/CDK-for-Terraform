@@ -9,6 +9,7 @@ interface ProjectFolderProps {
 
 export class ProjectFolder extends Construct {
   readonly readMeFile: file.File;
+  readonly gitIgnoreFile: file.File; // Expose .gitignore file
 
   constructor(scope: Construct, id: string, props: ProjectFolderProps) {
     super(scope, id);
@@ -23,7 +24,7 @@ export class ProjectFolder extends Construct {
     });
 
     // Create the package.json file with basic content
-    new file.File(this, 'package-json-file', {
+    this.gitIgnoreFile = new file.File(this, 'package-json-file', {
       filename: `${basePath}/package.json`,
       content: JSON.stringify(
         {
