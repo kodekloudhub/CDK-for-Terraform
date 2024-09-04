@@ -24,3 +24,5 @@ tsconfig.tsbuildinfo
 .pnp.*
 
 node_modules/
+
+**.DS_Store
