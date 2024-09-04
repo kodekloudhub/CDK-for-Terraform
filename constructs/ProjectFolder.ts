@@ -37,5 +37,11 @@ export class ProjectFolder extends Construct {
         2
       ),
     });
+
+    // Create the .gitignore file
+    new file.File(this, 'gitignore-file', {
+      filename: `${basePath}/.gitignore`,
+      content: `node_modules/\ndist/\n`,
+    });
   }
 }
