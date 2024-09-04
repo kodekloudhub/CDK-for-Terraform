@@ -4,6 +4,7 @@ import { file } from '@cdktf/provider-local';
 interface ProjectFolderProps {
   readonly projectName: string;
   readonly projectDirectory: string;
+  readonly ignoreFiles?: string[]; // New parameter for dynamic .gitignore content
 }
 
 export class ProjectFolder extends Construct {
@@ -12,7 +13,7 @@ export class ProjectFolder extends Construct {
   constructor(scope: Construct, id: string, props: ProjectFolderProps) {
     super(scope, id);
 
-    const { projectName, projectDirectory } = props;
+    const { projectName, projectDirectory, ignoreFiles } = props;
     const basePath = `${projectDirectory}/${projectName}`;
 
     // Create the README file with the project name inside
@@ -38,10 +39,10 @@ export class ProjectFolder extends Construct {
       ),
     });
 
-    // Create the .gitignore file
-    new file.File(this, 'gitignore-file', {
+    // Create the .gitignore file with dynamic content
+    new file.File(this, 'GitignoreFile', {
       filename: `${basePath}/.gitignore`,
-      content: `node_modules/\ndist/\n`,
+      content: ignoreFiles ? ignoreFiles.join('\n') : '',
     });
   }
 }

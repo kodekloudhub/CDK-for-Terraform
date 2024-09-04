@@ -18,6 +18,7 @@ class MyStack extends TerraformStack {
     const projectFolder = new ProjectFolder(this, 'project-folder', {
       projectName,
       projectDirectory,
+      ignoreFiles: ['dist', 'node_modules'],
     });
 
     // Output the readMeFile content
