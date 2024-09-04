@@ -1,5 +1,5 @@
 {
-  "name": "CDK-for-Terraform",
+  "name": "cdktf-project-builder",
   "version": "1.0.0",
   "main": "main.js",
   "types": "main.ts",
@@ -31,5 +31,6 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
-  }
+  },
+  "packageManager": "yarn@4.4.1"
 }
