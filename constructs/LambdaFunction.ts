@@ -1,17 +1,24 @@
 import { lambdaFunction, iamRole, iamRolePolicyAttachment } from '@cdktf/provider-aws';
 import { LambdaFunctionConfig } from '@cdktf/provider-aws/lib/lambda-function';
 import { Construct } from 'constructs';
+import { execSync } from 'child_process';
+import * as path from 'path';
 
-interface LambdaFunctionProps extends Omit<LambdaFunctionConfig, 'role'> {
-  filename: string;
+interface LambdaFunctionProps extends Omit<LambdaFunctionConfig, 'role' | 'filename'> {
+  bundle: string;
   functionName: string;
 }
 
 export class LambdaFunction extends Construct {
   public readonly lambdaFunction: lambdaFunction.LambdaFunction;
 
-  constructor(scope: Construct, id: string, { filename, functionName, ...rest }: LambdaFunctionProps) {
+  constructor(scope: Construct, id: string, { bundle, functionName, ...rest }: LambdaFunctionProps) {
     super(scope, id);
+
+    const filename = path.join(process.env.INIT_CWD!, `./out/${bundle}.zip`);
+    execSync(`rm -rf ./out && mkdir -p ./out && cd ${bundle} && zip -r ${filename} .`, {
+      cwd: process.env.INIT_CWD!,
+    });
 
     // Create IAM role for Lambda
     const lambdaRole = new iamRole.IamRole(this, 'lambda-execution-role', {

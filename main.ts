@@ -16,8 +16,8 @@ class MyStack extends TerraformStack {
 
     new LambdaFunction(this, 'lambda-function', {
       // bundle: './function-roulette/index.js',
-      // bundle: path.join(process.env.INIT_CWD!, './function-roulette/index.js'),
-      filename: path.join(process.env.INIT_CWD!, './function-roulette/index.js.zip'),
+      bundle: './function-roulette',
+      // filename: path.join('./function-roulette/index.js.zip'),
       functionName: getConstructName(this, 'api'),
       handler: 'index.handler',
     });
