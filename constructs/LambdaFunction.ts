@@ -1,7 +1,7 @@
 import { lambdaFunction, iamRole, iamRolePolicyAttachment } from '@cdktf/provider-aws';
 import { LambdaFunctionConfig } from '@cdktf/provider-aws/lib/lambda-function';
 import { Construct } from 'constructs';
-import { execSync } from 'child_process';
+import { TerraformAsset, AssetType, Fn } from 'cdktf';
 import * as path from 'path';
 
 interface LambdaFunctionProps extends Omit<LambdaFunctionConfig, 'role' | 'filename'> {
@@ -15,9 +15,10 @@ export class LambdaFunction extends Construct {
   constructor(scope: Construct, id: string, { bundle, functionName, ...rest }: LambdaFunctionProps) {
     super(scope, id);
 
-    const filename = path.join(process.env.INIT_CWD!, `./out/${bundle}.zip`);
-    execSync(`rm -rf ./out && mkdir -p ./out && cd ${bundle} && zip -r ${filename} .`, {
-      cwd: process.env.INIT_CWD!,
+    // Create a Terraform asset for the Lambda code
+    const asset = new TerraformAsset(this, `lambda-asset`, {
+      path: path.join(process.env.INIT_CWD!, bundle), // Path to the folder containing the Lambda code
+      type: AssetType.ARCHIVE, // This will package the folder as a ZIP archive
     });
 
     // Create IAM role for Lambda
@@ -43,11 +44,12 @@ export class LambdaFunction extends Construct {
       policyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
     });
 
+    // Use the asset for Lambda function deployment
     this.lambdaFunction = new lambdaFunction.LambdaFunction(this, 'lambda-function', {
       functionName,
       role: lambdaRole.arn,
       runtime: 'nodejs18.x',
-      filename,
+      filename: asset.path, // Use the path of the Terraform asset
       timeout: 30,
       ...rest,
     });
