@@ -1,10 +1,10 @@
 import { Construct } from 'constructs';
-import { App, TerraformStack } from 'cdktf';
+import { App, TerraformOutput, TerraformStack } from 'cdktf';
 import { LambdaFunction } from './constructs/LambdaFunction';
 import { provider } from '@cdktf/provider-aws';
 import * as path from 'path';
-
-export const getConstructName = (scope: Construct, id: string) => `${TerraformStack.of(scope)}-${id}`.toLowerCase();
+import { getConstructName } from './utils/utils';
+import { LambdaRestApi } from './constructs/LambdaRestApi';
 
 class MyStack extends TerraformStack {
   constructor(scope: Construct, id: string) {
@@ -14,12 +14,19 @@ class MyStack extends TerraformStack {
       region: 'ap-southeast-1',
     });
 
-    new LambdaFunction(this, 'lambda-function', {
-      // bundle: './function-roulette/index.js',
+    const functionRoulette = new LambdaFunction(this, 'lambda-function', {
       bundle: './function-roulette',
-      // filename: path.join('./function-roulette/index.js.zip'),
       functionName: getConstructName(this, 'api'),
       handler: 'index.handler',
+    });
+
+    const lambdaRestApi = new LambdaRestApi(this, 'lambda-rest-api', {
+      handler: functionRoulette.lambdaFunction,
+      stageName: 'dev',
+    });
+
+    new TerraformOutput(this, 'rouletteApiUrl', {
+      value: lambdaRestApi.url,
     });
   }
 }
