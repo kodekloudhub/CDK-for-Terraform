@@ -9,19 +9,27 @@ export class NamePickerStack extends AwsBaseStack {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const functionNamePicker = new LambdaFunction(this, 'lambda-function', {
-      bundle: './function-name-picker', // Path to the folder containing the Lambda code
-      functionName: getConstructName(this, 'api'),
-      handler: 'index.handler',
-    });
+    for (const type of ['roulette', 'shuffle'] as const) {
+      // Adding 'as const' gives us type safety
+      const functionNamePicker = new LambdaFunction(this, `lambda-function-${type}`, {
+        bundle: './function-name-picker', // Path to the folder containing the Lambda code
+        functionName: getConstructName(this, `api-${type}`),
+        handler: 'index.handler',
+        environment: {
+          variables: {
+            SHUFFLE: type === 'shuffle' ? 'true' : 'false',
+          },
+        },
+      });
 
-    const lambdaRestApi = new LambdaRestApi(this, 'lambda-rest-api', {
-      handler: functionNamePicker.lambdaFunction,
-      stageName: 'dev',
-    });
+      const lambdaRestApi = new LambdaRestApi(this, `lambda-rest-api-${type}`, {
+        handler: functionNamePicker.lambdaFunction,
+        stageName: 'dev',
+      });
 
-    new TerraformOutput(this, 'namePickerApiUrl', {
-      value: lambdaRestApi.url,
-    });
+      new TerraformOutput(this, `namePickerApiUrl-${type}`, {
+        value: lambdaRestApi.url,
+      });
+    }
   }
 }
