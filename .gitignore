@@ -12,6 +12,7 @@ tsconfig.tsbuildinfo
 !jest.config.js
 !setup.js
 
+
 # Yarn 
 
 .yarn/*
@@ -24,5 +25,8 @@ tsconfig.tsbuildinfo
 .pnp.*
 
 node_modules/
+
+
+!function-name-picker/**
 
 **/.DS_Store

@@ -406,6 +406,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cdktf/provider-aws@npm:^19.33.0":
+  version: 19.33.0
+  resolution: "@cdktf/provider-aws@npm:19.33.0"
+  peerDependencies:
+    cdktf: ^0.20.0
+    constructs: ^10.3.0
+  checksum: 10c0/fc600a68223b219f5b3ff0d30be38b526672725fe9025d9a939540d406c2ced2c72fde7522c87747620e23f6aa72ba46f94748af45ff05bcd8955a011d88bd85
+  languageName: node
+  linkType: hard
+
 "@cdktf/provider-local@npm:10.1.0":
   version: 10.1.0
   resolution: "@cdktf/provider-local@npm:10.1.0"
@@ -1340,6 +1350,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cdktf-project-builder@workspace:."
   dependencies:
+    "@cdktf/provider-aws": "npm:^19.33.0"
     "@cdktf/provider-local": "npm:10.1.0"
     "@types/jest": "npm:^29.5.12"
     "@types/node": "npm:^22.5.3"
