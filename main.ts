@@ -8,8 +8,5 @@ export const BACKEND_NAME = `${PROJECT_NAME}-prereq`;
 const app = new App();
 
 new NamePickerStack(app, PROJECT_NAME);
-new NamePickerStack(app, PROJECT_NAME + '-prod');
-
-new WeekPlannerStack(app, 'cdktf-week-planner');
 
 app.synth();
