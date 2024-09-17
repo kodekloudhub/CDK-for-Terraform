@@ -10,5 +10,5 @@ class MyStack extends TerraformStack {
 }
 
 const app = new App();
-new MyStack(app, 'cdktf-project-builder');
+new MyStack(app, 'cdktf-roulette');
 app.synth();
