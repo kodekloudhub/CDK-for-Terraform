@@ -6,7 +6,7 @@ import { getConstructName } from '../utils/utils';
 import { AwsBaseStack } from './AwsBaseStack';
 
 export class NamePickerStack extends AwsBaseStack {
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, stageName: 'dev' | 'prod' = 'dev') {
     super(scope, id);
 
     for (const type of ['roulette', 'shuffle'] as const) {
@@ -24,7 +24,7 @@ export class NamePickerStack extends AwsBaseStack {
 
       const lambdaRestApi = new LambdaRestApi(this, `lambda-rest-api-${type}`, {
         handler: functionNamePicker.lambdaFunction,
-        stageName: 'dev',
+        stageName: stageName,
       });
 
       new TerraformOutput(this, `namePickerApiUrl-${type}`, {
