@@ -4,8 +4,11 @@
   "projectId": "41d8912e-1850-4ff8-bbc1-af7df07e7407",
   "sendCrashReports": "false",
   "terraformProviders": [],
-  "terraformModules": [],
-  "context": {
-
-  }
+  "terraformModules": [
+    {
+      "name": "s3-dynamodb-remote-backend",
+      "source": "my-devops-way/s3-dynamodb-remote-backend/aws"
+    }
+  ],
+  "context": {}
 }
