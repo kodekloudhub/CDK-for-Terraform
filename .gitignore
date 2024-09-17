@@ -30,3 +30,5 @@ node_modules/
 !function-name-picker/**
 
 **/.DS_Store
+
+**/out

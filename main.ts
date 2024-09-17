@@ -15,9 +15,7 @@ class MyStack extends TerraformStack {
     });
 
     new LambdaFunction(this, 'lambda-function', {
-      // bundle: './function-name-picker/index.js',
-      // bundle: path.join(process.env.INIT_CWD!, './function-name-picker/index.js'),
-      filename: path.join(process.env.INIT_CWD!, './function-name-picker/index.js.zip'),
+      bundle: './function-name-picker',
       functionName: getConstructName(this, 'api'),
       handler: 'index.handler',
     });

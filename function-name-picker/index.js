@@ -2,6 +2,7 @@ let shuffledNames = [];
 let currentIndex = 0;
 
 exports.handler = async (event) => {
+  console.log('Received event', event);
   // Parse environment variables with default values
   const names = JSON.parse(process.env.NAMES || '["Arthur","Martin","Douglas","Carolyn"]');
   const shuffle = process.env.SHUFFLE === 'true';
