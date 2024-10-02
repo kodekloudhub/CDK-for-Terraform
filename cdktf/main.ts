@@ -2,6 +2,7 @@ import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
 import { provider, s3Bucket } from '@cdktf/provider-aws';
 import * as random from '@cdktf/provider-random';
+import { ImportedS3BucketWithEnvTag } from './.gen/modules/imported-s3-bucket-with-env-tag';
 
 class S3BucketWithEnvTag extends Construct {
   constructor(scope: Construct, id: string, env: 'dev' | 'prod') {
@@ -45,6 +46,10 @@ class MyStack extends TerraformStack {
     });
 
     new S3BucketWithEnvTag(this, 's3-bucket-with-env-tag', 'dev');
+
+    new ImportedS3BucketWithEnvTag(this, 'imported-s3-bucket-with-env-tag', {
+      env: 'dev',
+    });
   }
 }
 

@@ -4,8 +4,11 @@
   "projectId": "41d8912e-1850-4ff8-bbc1-af7df07e7407",
   "sendCrashReports": "false",
   "terraformProviders": [],
-  "terraformModules": [],
-  "context": {
-
-  }
+  "terraformModules": [
+    {
+      "name": "imported-s3-bucket-with-env-tag",
+      "source": "./custom-modules/s3_bucket_with_env_tag"
+    }
+  ],
+  "context": {}
 }
