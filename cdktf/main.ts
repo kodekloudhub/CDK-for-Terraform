@@ -5,16 +5,16 @@ import * as random from '@cdktf/provider-random';
 
 interface S3BucketWithEnvTagProps {
   env: 'dev' | 'prod';
-  bucketName: string;
+  name: string;
 }
 
 class S3BucketWithEnvTag extends Construct {
-  constructor(scope: Construct, id: string, { env, bucketName }: S3BucketWithEnvTagProps) {
+  constructor(scope: Construct, id: string, { env, name }: S3BucketWithEnvTagProps) {
     super(scope, id);
 
     // Create the S3 bucket
     new s3Bucket.S3Bucket(this, 's3-bucket', {
-      bucket: bucketName,
+      bucket: name,
       objectLockEnabled: true,
       tags: {
         env: env,
@@ -46,7 +46,7 @@ class MyStack extends TerraformStack {
     });
 
     new S3BucketWithEnvTag(this, 's3-bucket-with-env-tag', {
-      bucketName: `cdktf-demo-bucket-2-${randomId.hex}`,
+      name: `cdktf-demo-bucket-2-${randomId.hex}`,
       env: 'dev',
     });
   }
