@@ -406,6 +406,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cdktf/provider-aws@npm:^19.33.0":
+  version: 19.35.0
+  resolution: "@cdktf/provider-aws@npm:19.35.0"
+  peerDependencies:
+    cdktf: ^0.20.0
+    constructs: ^10.3.0
+  checksum: 10c0/91da171430f5b2c83be33b52268b3e558d930ee301502fd4f200e9f9ebbdc9120626eaba33d669005d257e6ddfc18dd6f960244a8232a6baa77f8ea2f6998cfc
+  languageName: node
+  linkType: hard
+
 "@cdktf/provider-local@npm:10.1.0":
   version: 10.1.0
   resolution: "@cdktf/provider-local@npm:10.1.0"
@@ -413,6 +423,16 @@ __metadata:
     cdktf: ^0.20.0
     constructs: ^10.3.0
   checksum: 10c0/a36b0764e20de097268d59dbf91c052a272deec19d07c02b05130acab4ed09cee5c0283dc4faa297f79f8758b6be8404224dc039dd26e62cab0ef027a7016fbd
+  languageName: node
+  linkType: hard
+
+"@cdktf/provider-random@npm:^11.0.3":
+  version: 11.0.3
+  resolution: "@cdktf/provider-random@npm:11.0.3"
+  peerDependencies:
+    cdktf: ^0.20.0
+    constructs: ^10.3.0
+  checksum: 10c0/37e7f40f7f2643965227f3e4f6aee484b0bcba4eba14c79483dc16e3d300c7839245c8fe7530d5d3cc84f50f49e036ed63e90210621e4ea172c875f0673eab32
   languageName: node
   linkType: hard
 
@@ -1340,7 +1360,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cdktf-project-builder@workspace:."
   dependencies:
+    "@cdktf/provider-aws": "npm:^19.33.0"
     "@cdktf/provider-local": "npm:10.1.0"
+    "@cdktf/provider-random": "npm:^11.0.3"
     "@types/jest": "npm:^29.5.12"
     "@types/node": "npm:^22.5.3"
     cdktf: "npm:^0.20.8"
