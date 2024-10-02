@@ -2,19 +2,19 @@ import { Construct } from 'constructs';
 import { App, TerraformStack } from 'cdktf';
 import { provider, s3Bucket } from '@cdktf/provider-aws';
 import * as random from '@cdktf/provider-random';
-import { ImportedS3BucketWithEnvTag } from './.gen/modules/imported-s3-bucket-with-env-tag';
+
+interface S3BucketWithEnvTagProps {
+  env: 'dev' | 'prod';
+  bucketName: string;
+}
 
 class S3BucketWithEnvTag extends Construct {
-  constructor(scope: Construct, id: string, env: 'dev' | 'prod') {
+  constructor(scope: Construct, id: string, { env, bucketName }: S3BucketWithEnvTagProps) {
     super(scope, id);
-
-    const randomId = new random.id.Id(this, 'random-id', {
-      byteLength: 4,
-    });
 
     // Create the S3 bucket
     new s3Bucket.S3Bucket(this, 's3-bucket', {
-      bucket: `cdktf-demo-bucket-2-${randomId.hex}`,
+      bucket: bucketName,
       objectLockEnabled: true,
       tags: {
         env: env,
@@ -45,9 +45,8 @@ class MyStack extends TerraformStack {
       objectLockEnabled: true,
     });
 
-    new S3BucketWithEnvTag(this, 's3-bucket-with-env-tag', 'dev');
-
-    new ImportedS3BucketWithEnvTag(this, 'imported-s3-bucket-with-env-tag', {
+    new S3BucketWithEnvTag(this, 's3-bucket-with-env-tag', {
+      bucketName: `cdktf-demo-bucket-2-${randomId.hex}`,
       env: 'dev',
     });
   }

@@ -18,5 +18,6 @@ resource "aws_s3_bucket" "tf-demo-bucket-1" {
 module "s3_bucket" {
   source = "./modules/s3_bucket_with_env_tag"
   env    = "dev"
+  name   = "tf-demo-bucket-2-${random_id.bucket_id.hex}" # Ensure unique bucket name
 }
 

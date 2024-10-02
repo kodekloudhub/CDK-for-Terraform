@@ -6,3 +6,8 @@ variable "env" {
     error_message = "The env variable must be either 'dev' or 'prod'."
   }
 }
+
+variable "name" {
+  description = "The name of the bucket"
+  type        = string
+}
