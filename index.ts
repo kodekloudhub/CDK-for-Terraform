@@ -31,7 +31,7 @@ class PondDuck implements IDuck {
     age: number,
     type: DuckType,
     color: DuckColor,
-    favoriteFood?: string
+    favoriteFood?: string,
   ) {
     this.name = name;
     this.age = age;
@@ -44,10 +44,10 @@ class PondDuck implements IDuck {
   // Method to make the duck quack a certain number of times
   quack(times?: number): void {
     // Optional function argument
-    const quackCount = times || 1; // Default to 1 if no argument is provided
+    const quackCount = times ?? 1; // Default to 1 if no argument is provided
     for (let i = 0; i < quackCount; i++) {
       console.log(
-        `${this.name} the ${this.color} ${this.type} duck says: Quack!`
+        `${this.name} the ${this.color} ${this.type} duck says: Quack!`,
       );
     }
   }
@@ -89,7 +89,7 @@ const elmer: Developer = {
 
 // Example Usage:
 console.log(
-  `Developer ${elmer.name} is obsessed with ${elmer.favoriteDuckType} ducks!`
+  `Developer ${elmer.name} is obsessed with ${elmer.favoriteDuckType} ducks!`,
 );
 
 // Duck pond array to store multiple Duck objects
