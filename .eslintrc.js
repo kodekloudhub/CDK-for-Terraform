@@ -39,4 +39,6 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
+  // Enable ESLint to report unused disable directives
+  reportUnusedDisableDirectives: true,
 };

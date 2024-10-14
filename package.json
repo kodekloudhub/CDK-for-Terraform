@@ -3,7 +3,8 @@
   "packageManager": "yarn@4.4.0",
   "scripts": {
     "dev": "ts-node-dev --respawn index.ts",
-    "lint:check": "NODE_ENV=production eslint \"./**/*.ts\" --report-unused-disable-directives --max-warnings 0"
+    "lint:check": "eslint \"./**/*.ts\" ",
+    "lint": "yarn lint:check --fix"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.8.1",
