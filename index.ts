@@ -1,12 +1,12 @@
 // Enum for Duck Types
 enum DuckType {
-  Mallard = "Mallard",
-  Muscovy = "Muscovy",
-  Pekin = "Pekin",
+  Mallard = 'Mallard',
+  Muscovy = 'Muscovy',
+  Pekin = 'Pekin',
 }
 
 // Type for Duck Colors using Union Type
-type DuckColor = "White" | "Brown" | "Black" | "Mixed";
+type DuckColor = 'White' | 'Brown' | 'Black' | 'Mixed';
 
 // Interface for a Duck's properties
 interface IDuck {
@@ -26,13 +26,7 @@ class PondDuck implements IDuck {
   isFlying: boolean; // Additional property not in the interface
   favoriteFood?: string; // Optional property
 
-  constructor(
-    name: string,
-    age: number,
-    type: DuckType,
-    color: DuckColor,
-    favoriteFood?: string,
-  ) {
+  constructor(name: string, age: number, type: DuckType, color: DuckColor, favoriteFood?: string) {
     this.name = name;
     this.age = age;
     this.type = type;
@@ -46,9 +40,7 @@ class PondDuck implements IDuck {
     // Optional function argument
     const quackCount = times ?? 1; // Default to 1 if no argument is provided
     for (let i = 0; i < quackCount; i++) {
-      console.log(
-        `${this.name} the ${this.color} ${this.type} duck says: Quack!`,
-      );
+      console.log(`${this.name} the ${this.color} ${this.type} duck says: Quack!`);
     }
   }
 
@@ -82,23 +74,21 @@ type Developer = {
 
 // Create an instance of Elmer Code
 const elmer: Developer = {
-  name: "Elmer Code",
+  name: 'Elmer Code',
   favoriteDuckType: DuckType.Mallard,
-  skills: ["TypeScript", "Debugging", "Problem Solving", "Hunting Ducks!"],
+  skills: ['TypeScript', 'Debugging', 'Problem Solving', 'Hunting Ducks!'],
 };
 
 // Example Usage:
-console.log(
-  `Developer ${elmer.name} is obsessed with ${elmer.favoriteDuckType} ducks!`,
-);
+console.log(`Developer ${elmer.name} is obsessed with ${elmer.favoriteDuckType} ducks!`);
 
 // Duck pond array to store multiple Duck objects
 const duckPond: PondDuck[] = []; // Explicit typing
 
 // Create some Duck instances and add them to the duck pond
-const daffy = new PondDuck("Daffy", 3, DuckType.Mallard, "Black"); // Inferred typing for the new Duck instance
-const donald = new PondDuck("Donald", 5, DuckType.Pekin, "White", "Corn"); // Optional property provided
-const howard = new PondDuck("Howard", 2, DuckType.Muscovy, "Brown");
+const daffy = new PondDuck('Daffy', 3, DuckType.Mallard, 'Black'); // Inferred typing for the new Duck instance
+const donald = new PondDuck('Donald', 5, DuckType.Pekin, 'White', 'Corn'); // Optional property provided
+const howard = new PondDuck('Howard', 2, DuckType.Muscovy, 'Brown');
 
 // Adding ducks to the pond array
 duckPond.push(daffy, donald, howard);
@@ -128,11 +118,11 @@ function countDucksByType(type: DuckType): number {
 makeAllDucksQuack(duckPond, 3);
 
 // Make a specific duck fly
-findDuckAndFly("Donald"); // Output: "Donald starts flying!"
+findDuckAndFly('Donald'); // Output: "Donald starts flying!"
 
 // Count the ducks by type
 const mallardCount: number = countDucksByType(DuckType.Mallard);
 console.log(`There are ${mallardCount} Mallard ducks in the pond.`);
 
 // List all ducks currently in the pond
-console.log("Ducks in the pond:", duckPond.map((duck) => duck.name).join(", "));
+console.log('Ducks in the pond:', duckPond.map((duck) => duck.name).join(', '));
