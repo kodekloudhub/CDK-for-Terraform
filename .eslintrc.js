@@ -14,7 +14,6 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    'no-console': ['warn', { allow: ['warn', 'error'] }],
     'import/order': [
       'error',
       {
