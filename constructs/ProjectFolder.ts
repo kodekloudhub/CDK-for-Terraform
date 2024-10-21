@@ -24,7 +24,7 @@ export class ProjectFolder extends Construct {
     });
 
     // Create the package.json file with basic content
-    this.gitIgnoreFile = new file.File(this, 'package-json-file', {
+    new file.File(this, 'package-json-file', {
       filename: `${basePath}/package.json`,
       content: JSON.stringify(
         {
@@ -41,7 +41,7 @@ export class ProjectFolder extends Construct {
     });
 
     // Create the .gitignore file with dynamic content
-    new file.File(this, 'GitignoreFile', {
+    this.gitIgnoreFile = new file.File(this, 'GitignoreFile', {
       filename: `${basePath}/.gitignore`,
       content: ignoreFiles ? ignoreFiles.join('\n') : '',
     });
