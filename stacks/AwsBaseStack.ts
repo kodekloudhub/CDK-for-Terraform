@@ -5,7 +5,7 @@ import { S3Backend, TerraformStack } from 'cdktf';
 import { provider } from '@cdktf/provider-aws';
 import * as path from 'path';
 import * as fs from 'fs';
-import { BACKEND_NAME } from '../main';
+import { BACKEND_NAME } from '../config';
 
 export class AwsBaseStack extends TerraformStack {
   constructor(scope: Construct, id: string) {

@@ -1,9 +1,7 @@
 import { App } from 'cdktf';
 import { NamePickerStack } from './stacks/NamePickerStack';
 import { WeekPlannerStack } from './stacks/WeekPlannerStack';
-
-export const PROJECT_NAME = 'cdktf-name-picker';
-export const BACKEND_NAME = `${PROJECT_NAME}-prereq`;
+import { PROJECT_NAME } from './config';
 
 const app = new App();
 

@@ -1,6 +1,6 @@
 import { App } from 'cdktf';
 import { PreReqStack } from './stacks/PreReqStack';
-import { BACKEND_NAME, PROJECT_NAME } from './main';
+import { BACKEND_NAME } from './config';
 
 const app = new App();
 
