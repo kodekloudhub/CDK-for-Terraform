@@ -1,7 +1,9 @@
-import { lambdaFunction, iamRole, iamRolePolicyAttachment } from '@cdktf/provider-aws';
+// The quick brown fox jumped over the lazy dog!
+import { iamRole, iamRolePolicyAttachment, lambdaAlias, lambdaFunction } from '@cdktf/provider-aws';
 import { LambdaFunctionConfig } from '@cdktf/provider-aws/lib/lambda-function';
+import { AssetType, TerraformAsset } from 'cdktf';
+import { execSync } from 'child_process';
 import { Construct } from 'constructs';
-import { TerraformAsset, AssetType, Fn } from 'cdktf';
 import * as path from 'path';
 
 interface LambdaFunctionProps extends Omit<LambdaFunctionConfig, 'role' | 'filename'> {
@@ -12,13 +14,12 @@ interface LambdaFunctionProps extends Omit<LambdaFunctionConfig, 'role' | 'filen
 export class LambdaFunction extends Construct {
   public readonly lambdaFunction: lambdaFunction.LambdaFunction;
 
-  constructor(scope: Construct, id: string, { bundle, functionName, ...rest }: LambdaFunctionProps) {
+  constructor(scope: Construct, id: string, { functionName, bundle, ...rest }: LambdaFunctionProps) {
     super(scope, id);
 
-    // Create a Terraform asset for the Lambda code
-    const asset = new TerraformAsset(this, `lambda-asset`, {
-      path: path.join(process.env.INIT_CWD!, bundle), // Path to the folder containing the Lambda code
-      type: AssetType.ARCHIVE, // This will package the folder as a ZIP archive
+    const asset = new TerraformAsset(this, 'lambda-asset', {
+      path: path.join(process.env.INIT_CWD!, bundle),
+      type: AssetType.ARCHIVE,
     });
 
     // Create IAM role for Lambda
@@ -38,19 +39,21 @@ export class LambdaFunction extends Construct {
       }),
     });
 
-    // Attach policy to the role
+    // ToDo: Attach policy to the role
+    // This policy attachment grants Lambda function basic required permissions (e.g: Logging in CloudWach):
+    // policyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
     new iamRolePolicyAttachment.IamRolePolicyAttachment(this, 'LambdaExecutionRolePolicy', {
       role: lambdaRole.name,
       policyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
     });
 
-    // Use the asset for Lambda function deployment
+    // ToDo: Create Lambda function
     this.lambdaFunction = new lambdaFunction.LambdaFunction(this, 'lambda-function', {
       functionName,
       role: lambdaRole.arn,
       runtime: 'nodejs18.x',
-      filename: asset.path, // Use the path of the Terraform asset
       timeout: 30,
+      filename: asset.path,
       ...rest,
     });
   }

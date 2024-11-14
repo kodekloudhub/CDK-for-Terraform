@@ -8,6 +8,8 @@ import {
   apiGatewayIntegration,
   lambdaPermission,
 } from '@cdktf/provider-aws';
+// Todo
+// Impletment reusable getConstructName function
 import { getConstructName } from '../utils/utils';
 
 interface LambdaRestApiProps {
@@ -49,9 +51,15 @@ export class LambdaRestApi extends Construct {
       dependsOn: [proxyResource, handler],
     });
 
+    // ToDo
+    // Expose the URL of the API Gateway as a string property
     this.url = deployment.invokeUrl;
   }
 
+  // ToDo
+  // Implement this function
+  // Add apiGatewayMethod.ApiGatewayMethod with id `${idPrefix}-method`
+  // Add apiGatewayIntegration.ApiGatewayIntegration with id `${idPrefix}-lambda-integration`
   private createApiGatewayLambdaMethod(
     idPrefix: string,
     restApi: apiGatewayRestApi.ApiGatewayRestApi,
