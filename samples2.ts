@@ -3,7 +3,7 @@ export {};
 
 // Slide 73
 
-// Add do main
+// Add to main
 new S3Backend(this, {
   bucket: 'cdktf-name-picker-backend', // We need to create this somehow
   dynamodbTable: 'cdktf-name-picker-locks', // We need to create this somehow
@@ -13,6 +13,11 @@ new S3Backend(this, {
 
 
 // Slide 82
+
+
+https://developer.hashicorp.com/terraform/cdktf/concepts/modules 
+
+https://registry.terraform.io/modules/my-devops-way/s3-dynamodb-remote-backend/aws/0.0.1?tab=outputs
 
 
 // Add to cdktf.json
@@ -31,7 +36,9 @@ const bakend = new S3DynamodbRemoteBackend(this, 's3-dynamodb-remote-backend', {
 
 
 // Slide 85
-// Copy out name picker stack
+
+// !!!!!!!!!!!!!!!!!!
+// Copy out name picker stack from main.ts
 
 
 // Create PreReqStack.ts
@@ -106,6 +113,10 @@ app.synth();
 // Show it exists in console?
 
 
+`
+pick up 34:54
+`
+
 //  AwsBaseStack.ts copy in
 
 /* eslint-disable @typescript-eslint/no-var-requires */
@@ -144,7 +155,7 @@ export class AwsBaseStack extends TerraformStack {
   }
 }
 
-// Copy in
+// Type in
 new S3Backend(this, {
   bucket: prereqState.outputs.bucket.value, // Get from output of prerequisite state file
   dynamodbTable: prereqState.outputs.dynamodbTable.value, // Get from output of prerequisite state file
@@ -152,29 +163,31 @@ new S3Backend(this, {
   key: id, // The name of this stack
 });
 
+
+
 `
-Extend in NamePickerStack.ts + remove provider
-
-yarn synth (Refer to slide)
-
-Show backend in tf file
-
+Delete S3Backend
+Extend in NamePickerStack.ts + remove provider (not yet)
 
 Now we are migrating state to remote backend
 This is complicated
 Normally you don't need to do this
 
+deploy local again (coz shared state gen folder, i think would not be needed if in monorepo)
+
+now switch it over to AwsBaseStack
+yarn synth (Refer to slide)
 
 cd cdktf.out/stacks/cdktf-name-picker //Just like any other terraform project (do for all stacks)
 terraform init -migrate-state
-
-yarn deploy  (Refer to slide)
-
-0 added - 0 destroyed - 0 updated!!!
-
 (show in console)
 
+cd to root
+yarn deploy (Refer to slide)
+
 Delete local state
+
+Finish slides
 `
 
 
@@ -204,3 +217,73 @@ new NamePickerStack(app, PROJECT_NAME + '-prod', 'prod');
 // Back up lab
 
 // End. Reset the lab 
+
+
+
+
+// Redo
+
+`
+yarn cdktf get
+
+deploy local (remove AWSBaseStack)
+deploy:prereq
+`
+
+
+
+
+`
+
+
+pick up 34:54
+
+Now we are migrating state to remote backend
+This is complicated
+Normally you don't need to do this
+
+deploy local again (coz shared state gen folder, i think would not be needed if in monorepo)
+
+cd cdktf.out/stacks/cdktf-name-picker //Just like any other terraform project (do for all stacks)
+terraform init -migrate-state
+(show in console)
+
+cd to root
+yarn deploy
+
+
+'pick up 3:00'
+
+`
+
+// Slide 94
+
+import { Construct } from 'constructs';
+import { TerraformOutput } from 'cdktf';
+import { AwsBaseStack } from './AwsBaseStack';
+
+export class WeekPlannerStack extends AwsBaseStack {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    new TerraformOutput(this, 'weekPickerApiUrl', {
+      value: 'https://example.com',
+    });
+  }
+}
+
+// main.ts
+new WeekPlannerStack(app, 'cdktf-week-planner')
+
+
+`
+Show prod deploy
+`
+new NamePickerStack(app, PROJECT_NAME + '-prod');
+`yarn deploy`
+// Show in console
+
+'Re-record final demo'
+// Curl, show bug, still says /dev (q2 of lab will fix this)
+// Tips for lab
+// Show configure names (from ts and from console)
